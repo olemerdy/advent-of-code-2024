@@ -1,5 +1,7 @@
 package org.lafeuille.adventofcode.y2024.d02
 
+import org.lafeuille.adventofcode.y2024.d02.Direction.{Ascending, Descending, Undefined}
+
 import scala.annotation.tailrec
 import scala.io.Source
 
@@ -15,20 +17,32 @@ object Day02 {
       .toList
 }
 
+enum Direction:
+  case Ascending, Descending, Undefined
+
 object Day02Part1 extends App {
 
   def isSafe(levels: List[Int]): Boolean = {
-    var isAscending = true
-    for (i <- levels.indices) {
-
+    var safe = true
+    var direction = Direction.Undefined
+    var i = 0
+    while
+      i += 1
+      safe && i < levels.size
+    do {
+      val diff = math.abs(levels(i - 1) - levels(i))
+      val diffInBounds = diff >= 1 && diff <= 3
+      val newDirection = if (levels(i - 1) < levels(i)) Ascending else Descending
+      val directionMatches = direction == Undefined || direction == newDirection
+      direction = newDirection
+      safe = diffInBounds && directionMatches
     }
-    false
+    safe
   }
 
   def result(reports: List[List[Int]]): Int =
     reports.count(isSafe)
 
-  println(Day02.myList.indices)
   println(result(Day02.myList))
 }
 
