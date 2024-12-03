@@ -2,7 +2,6 @@ package org.lafeuille.adventofcode.y2024.d02
 
 import org.lafeuille.adventofcode.y2024.d02.Direction.{Ascending, Descending, Undefined}
 
-import scala.annotation.tailrec
 import scala.io.Source
 
 object Day02 {
@@ -15,14 +14,9 @@ object Day02 {
         .map(_.toInt)
         .toList)
       .toList
-}
 
-enum Direction:
-  case Ascending, Descending, Undefined
-
-object Day02Part1 extends App {
-
-  def isSafe(levels: List[Int]): Boolean = {
+  def isSafe(levels: List[Int], canHaveOneError: Boolean): Boolean = {
+    var tolerateNextError = canHaveOneError
     var safe = true
     var direction = Direction.Undefined
     var i = 0
@@ -35,10 +29,21 @@ object Day02Part1 extends App {
       val newDirection = if (levels(i - 1) < levels(i)) Ascending else Descending
       val directionMatches = direction == Undefined || direction == newDirection
       direction = newDirection
-      safe = diffInBounds && directionMatches
+      val levelSafe = diffInBounds && directionMatches
+      safe = tolerateNextError || levelSafe
+      tolerateNextError = !levelSafe
     }
     safe
   }
+}
+
+enum Direction:
+  case Ascending, Descending, Undefined
+
+object Day02Part1 extends App {
+
+  def isSafe(levels: List[Int]): Boolean =
+    Day02.isSafe(levels = levels, canHaveOneError = false)
 
   def result(reports: List[List[Int]]): Int =
     reports.count(isSafe)
@@ -47,4 +52,12 @@ object Day02Part1 extends App {
 }
 
 object Day02Part2 extends App {
+
+  def isSafe(levels: List[Int]): Boolean =
+    Day02.isSafe(levels = levels, canHaveOneError = true)
+
+  def result(reports: List[List[Int]]): Int =
+    reports.count(isSafe)
+
+  println(result(Day02.myList))
 }
