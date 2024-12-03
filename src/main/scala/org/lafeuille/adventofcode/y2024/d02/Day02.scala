@@ -1,5 +1,6 @@
 package org.lafeuille.adventofcode.y2024.d02
 
+import org.lafeuille.adventofcode.y2024.d01.Day01Part1
 import org.lafeuille.adventofcode.y2024.d02.Direction.{Ascending, Descending, Undefined}
 
 import scala.io.Source
@@ -61,7 +62,7 @@ object Day02Part2 extends App {
       direction = newDirection
       safe = diffInBounds && directionMatches
     }
-    safe
+    safe || Day02Part1.isSafe(levels.patch(i - 1, Nil, 1))
   }
 
   def result(reports: List[List[Int]]): Int =

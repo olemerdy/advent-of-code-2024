@@ -31,4 +31,11 @@ class Day02Spec extends AnyWordSpec with should.Matchers with TableDrivenPropert
     }
   }
 
+  "My input in Part2" should {
+    val result = 548
+    s"have result $result" in {
+      Day02Part2.result(Day02.myList) shouldBe result
+    }
+  }
+
 }
