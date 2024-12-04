@@ -4,6 +4,7 @@ import org.scalatest.matchers.should
 import org.scalatest.wordspec.AnyWordSpec
 
 class Day01Spec extends AnyWordSpec with should.Matchers {
+
   "My input in Part1" should {
     val result = 2264607
     s"have result $result" in {
@@ -17,4 +18,5 @@ class Day01Spec extends AnyWordSpec with should.Matchers {
       Day01Part2.result(Day01.myLists) shouldBe result
     }
   }
+
 }
