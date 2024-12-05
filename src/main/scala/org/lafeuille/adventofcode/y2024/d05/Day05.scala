@@ -17,28 +17,36 @@ object Day05 {
   def myUpdates: List[List[Int]] =
     myInputB.getLines().map(_.split(",").map(_.toInt).toList).toList
 
-}
-
-object Day05Part1 {
   private def uniquePairs[A](list: List[A]) = for {
     (x, idxX) <- list.zipWithIndex
     (y, idxY) <- list.zipWithIndex
     if idxX < idxY
   } yield (x, y)
 
-  private def isOrdered(update: List[Int], pageOrderingRules: List[(Int, Int)]): Boolean =
+  def isOrdered(pageOrderingRules: List[(Int, Int)], update: List[Int]): Boolean =
     uniquePairs(update).forall((a, b) => !pageOrderingRules.contains((b, a)))
 
-  private def getMiddleNumber(update: List[Int]): Int =
+  def getMiddleNumber(update: List[Int]): Int =
     update(update.size / 2)
+}
+
+object Day05Part1 {
 
   def result(pageOrderingRules: List[(Int, Int)], updates: List[List[Int]]): Int =
     updates
-      .filter(isOrdered(_, pageOrderingRules))
-      .map(getMiddleNumber)
+      .filter(Day05.isOrdered(pageOrderingRules, _))
+      .map(Day05.getMiddleNumber)
       .sum
 }
 
 object Day05Part2 {
 
+  private def reorder(pageOrderingRules: List[(Int, Int)], update: List[Int]): List[Int] = ???
+
+  def result(pageOrderingRules: List[(Int, Int)], updates: List[List[Int]]): Int =
+    updates
+      .filter(!Day05.isOrdered(pageOrderingRules, _))
+      .map(reorder(pageOrderingRules, _))
+      .map(Day05.getMiddleNumber)
+      .sum
 }

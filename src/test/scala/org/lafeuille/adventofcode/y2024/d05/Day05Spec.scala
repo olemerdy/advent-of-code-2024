@@ -13,9 +13,9 @@ class Day05Spec extends AnyWordSpec with should.Matchers {
   }
 
   "My input in Part2" should {
-    val result = 1988
+    val result = 4609
     s"have result $result" in {
-      ///Day05Part2.result(Day05.myGrid) shouldBe result
+      Day05Part2.result(Day05.myPageOrderingRules, Day05.myUpdates) shouldBe result
     }
   }
 }
