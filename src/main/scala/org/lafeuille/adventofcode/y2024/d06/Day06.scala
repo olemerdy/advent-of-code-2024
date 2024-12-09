@@ -7,7 +7,6 @@ import scala.io.Source
 object Day06 {
   private def myInput: Source =
     Source.fromURL(getClass.getResource("input06.txt"))
-
 }
 
 object Day06Part1 {
